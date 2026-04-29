@@ -8,7 +8,7 @@ from model_final import prepare_dataframe
 
 @st.cache_resource
 def load_model():
-    model_path = Path(__file__).resolve().parents[1] / 'Model' / 'model_3.pkl'
+    model_path = Path(__file__).resolve().parent / 'model_3.pkl'
     with open(model_path, 'rb') as file:
         data = pickle.load(file)
     return data
