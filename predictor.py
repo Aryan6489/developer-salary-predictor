@@ -168,7 +168,24 @@ def show_predict_page():
 
                 st.markdown("---")
                 st.markdown(f"<h2 style='text-align: center; color: #28a745;'>💰 Estimated Annual Salary</h2>", unsafe_allow_html=True)
-                st.markdown(f"<h1 style='text-align: center; color: #007bff; font-size: 48px;'>{'₹' if 'INR' in raw_currency else '$'}{salary[0]:,.2f}</h1>", unsafe_allow_html=True)
+                import requests
+                try:
+                    response = requests.get("https://api.exchangerate-api.com/v4/latest/USD")
+                    rate_data = response.json()
+                    inr_rate = rate_data["rates"]["INR"]
+                except:
+                    inr_rate = 84
+
+                if 'INR' in raw_currency:
+                    display_salary = salary[0] * inr_rate
+                    symbol = '₹'
+                    st.markdown(f"<h1 style='text-align: center; color: #007bff; font-size: 48px;'>{symbol}{display_salary:,.2f}</h1>", unsafe_allow_html=True)
+                    st.caption(f"💡 Converted from USD at live rate ₹{inr_rate:.2f}/USD")
+                else:
+                    display_salary = salary[0]
+                    symbol = '$'
+                    st.markdown(f"<h1 style='text-align: center; color: #007bff; font-size: 48px;'>{symbol}{display_salary:,.2f}</h1>", unsafe_allow_html=True)
+                    st.caption("💡 Salary estimated in USD based on global survey data")
                 
                 # Display breakdown info
                 col1, col2, col3 = st.columns(3)
