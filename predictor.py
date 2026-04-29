@@ -168,7 +168,7 @@ def show_predict_page():
 
                 st.markdown("---")
                 st.markdown(f"<h2 style='text-align: center; color: #28a745;'>💰 Estimated Annual Salary</h2>", unsafe_allow_html=True)
-                st.markdown(f"<h1 style='text-align: center; color: #007bff; font-size: 48px;'>{'₹' if 'INR' in currency else '$'}{salary[0]:,.2f}</h1>", unsafe_allow_html=True)
+                st.markdown(f"<h1 style='text-align: center; color: #007bff; font-size: 48px;'>{'₹' if 'INR' in raw_currency else '$'}{salary[0]:,.2f}</h1>", unsafe_allow_html=True)
                 
                 # Display breakdown info
                 col1, col2, col3 = st.columns(3)
